@@ -13,11 +13,7 @@ function aesDecode(data, key, iv) {
 }
 export default function handler(request, response) {
   let data = request.query["message"]
-  try {
-    let ret = aesDecode(data, "jia6712954524600", "qwertyuioplkjhgf")
-  } catch {
-    ret = false
-  }
+  let ret = aesDecode(data, "jia6712954524600", "qwertyuioplkjhgf")
   response.status(200).json({
     decode: ret
     // body: request.body,
