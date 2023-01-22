@@ -11,6 +11,14 @@ function aesDecode(data,key,iv){
     return src+=cipher.final('utf-8')
 
 }
+export default function handler(request, response) {
+    response.status(200).json({
+      body: request.body,
+      query: request.query,
+      cookies: request.cookies,
+    });
+  }
+  
 console.log(aesDecode("a1bdc9452db467e79029772d536a6166","jia6712954524600","qwertyuioplkjhgf"))
 // var mysql = require("mysql")
 // var connection = mysql.createConnection({
