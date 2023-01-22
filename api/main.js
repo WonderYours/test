@@ -1,25 +1,32 @@
 const crypto = require("crypto")
-function aesEncode(data,key,iv){
-    const cipher = crypto.createCipheriv("aes-128-cbc",key,iv)
-    let src = cipher.update(data,'utf-8','hex')
-    return src+=cipher.final('hex')
+function aesEncode(data, key, iv) {
+  const cipher = crypto.createCipheriv("aes-128-cbc", key, iv)
+  let src = cipher.update(data, 'utf-8', 'hex')
+  return src += cipher.final('hex')
 }
 
-function aesDecode(data,key,iv){
-    const cipher = crypto.createDecipheriv("aes-128-cbc",key,iv)
-    let src = cipher.update(data,'hex','utf-8')
-    return src+=cipher.final('utf-8')
+function aesDecode(data, key, iv) {
+  const cipher = crypto.createDecipheriv("aes-128-cbc", key, iv)
+  let src = cipher.update(data, 'hex', 'utf-8')
+  return src += cipher.final('utf-8')
 
 }
 export default function handler(request, response) {
-    response.status(200).json({
-      body: request.body,
-      query: request.query,
-      cookies: request.cookies,
-    });
+  let data = request.query["message"]
+  try {
+    let ret = aesDecode(data, "jia6712954524600", "qwertyuioplkjhgf")
+  } catch {
+    ret = false
   }
-  
-console.log(aesDecode("a1bdc9452db467e79029772d536a6166","jia6712954524600","qwertyuioplkjhgf"))
+  response.status(200).json({
+    decode: ret
+    // body: request.body,
+    // query: request.query,
+    // cookies: request.cookies,
+  });
+}
+
+console.log(aesDecode("a1bdc9452db467e79029772d536a6166", "jia6712954524600", "qwertyuioplkjhgf"))
 // var mysql = require("mysql")
 // var connection = mysql.createConnection({
 //     host: "120.76.117.92",
